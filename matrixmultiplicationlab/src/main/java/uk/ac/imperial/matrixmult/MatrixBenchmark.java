@@ -54,15 +54,15 @@ public class MatrixBenchmark {
 
     // DENSE MATRIX BENCHMARK
 
-    Matrix da = create(953, 1492, 123456789);
-    Matrix db = create(1492, 833, 987654321);
+    Matrix da = create(2000, 1492, 123456789);
+    Matrix db = create(1492, 2200, 987654321);
 
     Matrix dres = MatrixMultiplier.multiply(da, db);
 
     // SPARSE MATRIX CHECK
 
-    Matrix sa = create(1150, 1190, 523452365, true, 100);
-    Matrix sb = create(1190, 1000, 472676354, true, 100);
+    Matrix sa = create(2200, 1190, 523452365, true, 100);
+    Matrix sb = create(1190, 1999, 472676354, true, 100);
 
     Matrix sres = MatrixMultiplier.multiply(da, db);
 

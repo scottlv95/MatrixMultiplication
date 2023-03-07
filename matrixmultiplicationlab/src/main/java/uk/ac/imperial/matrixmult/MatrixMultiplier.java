@@ -1,6 +1,6 @@
 package uk.ac.imperial.matrixmult;
 
-public class MatrixMultiplier {
+public class MatrixMultiplier{
 
   public static Matrix multiply(Matrix a, Matrix b) throws Exception {
     if (a.getNumRows()<=128) {
@@ -40,4 +40,6 @@ public class MatrixMultiplier {
       }
       return result;
     }
-  }
+
+
+}

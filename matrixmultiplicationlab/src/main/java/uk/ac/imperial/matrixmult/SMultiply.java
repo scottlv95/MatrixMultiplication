@@ -13,7 +13,15 @@ public class SMultiply {
     int m = Math.max(x,y);
     a = a.pad(m,m);
     b = b.pad(m,m);
-    BasicMatrix c = multiply(a,b);
+    BasicMatrix c = new BasicMatrix(new double[m][m]);
+    MultiplyWorker mainWorker = new MultiplyWorker(c,a,b,true);
+    mainWorker.start();
+    try {
+      mainWorker.join();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+    c = mainWorker.getC();
     c = c.getSubMatrix(0,0,r1,c2);
     return c;
   }
@@ -26,6 +34,9 @@ public class SMultiply {
 
     if (m == 1) {
       c.set(0,0,(a.get(0,0)*b.get(0,0)));
+    }
+    else if (m<=128) {
+      c=naiveMultiply(a,b);
     }
     else {
       int orgM = m;

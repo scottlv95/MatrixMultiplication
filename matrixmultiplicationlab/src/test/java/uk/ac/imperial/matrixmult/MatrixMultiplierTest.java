@@ -19,7 +19,7 @@ public class MatrixMultiplierTest {
 
   @Test
   public void identityCheck() throws Exception {
-    int size = 4;
+    int size = 140;
 
     Matrix m = MatrixBuilder.build(size, size);
     for (int row = 0; row < size; row++) {
@@ -40,7 +40,7 @@ public class MatrixMultiplierTest {
 
   @Test
   public void zeroCheck() throws Exception {
-    int size = 16;
+    int size = 130;
 
     Matrix m = MatrixBuilder.build(size, size);
     for (int row = 0; row < size; row++) {
@@ -58,7 +58,7 @@ public class MatrixMultiplierTest {
 
   @Test
   public void associativityCheck() throws Exception {
-    int size = 10;
+    int size = 4000;
 
     Matrix a = MatrixBenchmark.create(size + 10, size + 5, 34286073);
     Matrix b = MatrixBenchmark.create(size + 5, size + 30, 92830465);
