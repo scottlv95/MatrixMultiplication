@@ -3,7 +3,14 @@ package uk.ac.imperial.matrixmult;
 public class MatrixMultiplier {
 
   public static Matrix multiply(Matrix a, Matrix b) throws Exception {
-    return naiveMultiply(a,b);
+    if (a.getNumRows()<=128) {
+      return naiveMultiply(a, b);
+    }
+    else {
+      BasicMatrix dcA = (BasicMatrix) a;
+      BasicMatrix dcB = (BasicMatrix) b;
+      return SMultiply.multiplyFinal(dcA,dcB);
+    }
   }
 
 
