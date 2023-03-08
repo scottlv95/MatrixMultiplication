@@ -3,14 +3,19 @@ package uk.ac.imperial.matrixmult;
 public class MatrixMultiplier{
 
   public static Matrix multiply(Matrix a, Matrix b) throws Exception {
-    if (a.getNumRows()<=128) {
+    if (a.getNumRows()<=4) {
       return naiveMultiply(a, b);
     }
-    else {
-      BasicMatrix dcA = (BasicMatrix) a;
-      BasicMatrix dcB = (BasicMatrix) b;
-      return SMultiply.multiplyFinal(dcA,dcB);
-    }
+//    else {
+//      BasicMatrix dcA = (BasicMatrix) a;
+//      BasicMatrix dcB = (BasicMatrix) b;
+//      return SMultiply.multiplyFinal(dcA,dcB);
+//    }
+
+    double[][] arrA = a.getMatrix();
+    double[][] arrB = b.getMatrix();
+    double[][] c =  CacheMultiply.blockMultiplyConcurrent(arrA,arrB,256,10);
+    return new CacheMatrix(c);
   }
 
 
