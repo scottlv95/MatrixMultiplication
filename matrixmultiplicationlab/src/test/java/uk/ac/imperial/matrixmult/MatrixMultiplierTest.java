@@ -58,7 +58,7 @@ public class MatrixMultiplierTest {
 
   @Test
   public void associativityCheck() throws Exception {
-    int size = 1000;
+    int size = 2000;
 
     Matrix a = MatrixBenchmark.create(size + 10, size + 5, 34286073);
     Matrix b = MatrixBenchmark.create(size + 5, size + 30, 92830465);

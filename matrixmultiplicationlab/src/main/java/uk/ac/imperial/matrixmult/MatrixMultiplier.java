@@ -14,7 +14,7 @@ public class MatrixMultiplier{
 
     double[][] arrA = a.getMatrix();
     double[][] arrB = b.getMatrix();
-    double[][] c =  CacheMultiply.blockMultiplyConcurrent(arrA,arrB,256,10);
+    double[][] c =  CacheMultiply.blockMultiplyConcurrent(arrA,arrB,256,16);
     return new CacheMatrix(c);
   }
 

@@ -6,11 +6,6 @@ import java.util.concurrent.*;
 
 public class CacheMultiply {
 
-  public CacheMultiply() {
-  }
-
-
-  // n*n
 
 
     public static double[][] multiply(double[][] A, double[][] B) {
@@ -74,6 +69,12 @@ public class CacheMultiply {
     double[][] C = new double[n][p];
     int numThreads = 16;
 
+    double[][] B_transposed = new double[p][n];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < p; j++) {
+        B_transposed[j][i] = B[i][j];
+      }
+    }
     ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
     List<Future<?>> futures = new ArrayList<>();
@@ -91,7 +92,7 @@ public class CacheMultiply {
                   for (int jj = finalJ; jj < Math.min(finalJ + blockSize, p); jj++) {
                     int sum = 0;
                     for (int kk = finalK; kk < Math.min(finalK + blockSize, m); kk++) {
-                      sum += A[ii][kk] * B[kk][jj];
+                      sum += A[ii][kk] * B_transposed[jj][kk];
                     }
                     C[ii][jj] += sum;
                   }
@@ -118,12 +119,20 @@ public class CacheMultiply {
 
   public static double[][] blockMultiplyConcurrent(double[][] A, double[][] B, int blockSize, int numThreads) {
     int n = A.length;
-    int m = A[0].length;
+    int m = B.length;
     int p = B[0].length;
     double[][] C = new double[n][p];
-    ExecutorService executor = Executors.newFixedThreadPool(numThreads);
 
+    double[][] B_transposed = new double[p][m];
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < p; j++) {
+        B_transposed[j][i] = B[i][j];
+      }
+    }
+
+    ExecutorService executor = Executors.newFixedThreadPool(numThreads);
     // Compute matrix multiplication with block optimization
+
     for (int i = 0; i < n; i += blockSize) {
       for (int j = 0; j < p; j += blockSize) {
         for (int k = 0; k < m; k += blockSize) {
@@ -141,7 +150,7 @@ public class CacheMultiply {
                 for (int jj = startJ; jj < endJ; jj++) {
                   int sum = 0;
                   for (int kk = startK; kk < endK; kk++) {
-                    sum += A[ii][kk] * B[kk][jj];
+                    sum += A[ii][kk] * B_transposed[jj][kk];
                   }
                   synchronized (C) {
                     C[ii][jj] += sum;

@@ -28,5 +28,5 @@ public interface Matrix {
     return true;
   }
 
-  public double[][] getMatrix();
+  public double[] getMatrix();
 }

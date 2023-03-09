@@ -1,5 +1,7 @@
 package uk.ac.imperial.matrixmult;
 
+import java.util.Arrays;
+
 public class CacheMatrix implements Matrix{
 
 
@@ -34,7 +36,7 @@ public class CacheMatrix implements Matrix{
     return matrix[0].length;
   }
 
-  public double[][] getMatrix() {
-    return matrix;
+  public double[] getMatrix() {
+    return Arrays.stream(matrix).flatMapToDouble(Arrays::stream).toArray();
   }
 }
