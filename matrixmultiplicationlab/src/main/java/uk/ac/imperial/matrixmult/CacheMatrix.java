@@ -10,6 +10,14 @@ public class CacheMatrix implements Matrix{
     this.matrix = matrix;
   }
 
+  public CacheMatrix(double[] matrix) {
+    for (int i = 0; i< getNumRows(); i++) {
+      for (int j = 0; j<getNumRows(); j++) {
+        set(i,j,matrix[i*getNumRows()+j]);
+      }
+    }
+  }
+
   public CacheMatrix(int row, int col) {
     matrix = new double[row][col];
   }
@@ -36,7 +44,11 @@ public class CacheMatrix implements Matrix{
     return matrix[0].length;
   }
 
-  public double[] getMatrix() {
-    return Arrays.stream(matrix).flatMapToDouble(Arrays::stream).toArray();
+  public double[][] getMatrix() {
+    return matrix;
+  }
+
+  public double[] getOneDMatrix() {
+       return  Arrays.stream(matrix).flatMapToDouble(Arrays::stream).toArray();
   }
 }

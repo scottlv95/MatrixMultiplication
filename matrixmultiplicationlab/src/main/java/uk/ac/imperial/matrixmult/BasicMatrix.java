@@ -127,7 +127,7 @@ public class BasicMatrix implements Matrix {
     }
     return sb.toString();
   }
-  public double[] getMatrix() {
+  public double[][] getMatrix() {
     return null;
   }
 }
